@@ -74,8 +74,23 @@ $msixPath = "$root\build\windows\ScreenTime-$version-windows-x64.msix"
     --output-path "$root\build\windows" `
     --output-name "ScreenTime-$version-windows-x64"
 if ($LASTEXITCODE -ne 0) { throw "msix build failed" }
-Copy-Item "$env:LOCALAPPDATA\Pub\Cache\hosted\pub.dev\msix-*\lib\assets\test_certificate.pfx" `
-    "$root\build\windows\ScreenTime-test.pfx" -Force
 Write-Host "Wrote $msixPath"
+
+# Best-effort convenience copy of the msix package's bundled self-signed
+# test certificate (see this script's header) — not required for the
+# .msix itself, which is already written above, so a pub cache layout
+# this doesn't anticipate (e.g. a non-default PUB_CACHE) shouldn't fail
+# the whole packaging run over a file that's only needed for the manual
+# "trust this test cert" step on another machine.
+$pubCacheRoot = if ($env:PUB_CACHE) { $env:PUB_CACHE } else { "$env:LOCALAPPDATA\Pub\Cache" }
+$testCert = Get-ChildItem -Path "$pubCacheRoot\hosted\pub.dev" -Filter "test_certificate.pfx" -Recurse -ErrorAction SilentlyContinue |
+    Where-Object { $_.FullName -match '\\msix-[^\\]+\\' } |
+    Select-Object -First 1
+if ($testCert) {
+    Copy-Item $testCert.FullName "$root\build\windows\ScreenTime-test.pfx" -Force
+    Write-Host "Wrote $root\build\windows\ScreenTime-test.pfx"
+} else {
+    Write-Warning "Could not find the msix package's test_certificate.pfx under '$pubCacheRoot' — skipping the convenience copy; the .msix above is unaffected."
+}
 
 Write-Host "`nDone."

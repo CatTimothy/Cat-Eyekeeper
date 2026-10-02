@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Cat Eyekeeper is a privacy-first Windows &amp; Linux screen-time tracker with animated full-screen break reminders.">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<title>Cat Eyekeeper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@500;600;700;800&family=Noto+Sans+TC:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /*
+    Layout concept: the hero recreates the app's own dashboard — a stat-card
+    row plus a chart card — as its visual, and every section below is styled
+    like one of the app's own titled Settings "groups" (card, title, rule),
+    so the marketing page borrows its shape directly from the product it's
+    selling rather than from a generic template.
+  */
+  :root {
+    --bg: #F2EACD;
+    --bg-elevated: #FFFDF3;
+    --surface: #FFFDF3;
+    --surface-2: #EAE0B9;
+    --fg: #14201E;
+    --fg-muted: #4B5A52;
+    --accent: #A17F1E;
+    --accent-strong: #8C6D1F;
+    --accent-fill: #D9C36A;
+    --on-accent: #14201E;
+    --border: #DED0A0;
+    --forest: #1B3B36;
+    --cream: #F2EACD;
+    --ink: #14201E;
+    --gold: #D9C36A;
+    --shadow: 0 1px 2px rgba(20,32,30,.06), 0 8px 24px -12px rgba(20,32,30,.18);
+    --cat-work: #3F51B5;
+    --cat-social: #009688;
+    --cat-entertainment: #FF5722;
+    --cat-learning: #9C27B0;
+    --cat-system: #607D8B;
+    --cat-other: #9E9E9E;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F201C;
+      --bg-elevated: #15302B;
+      --surface: #1B3B36;
+      --surface-2: #224842;
+      --fg: #F2EACD;
+      --fg-muted: #AFC0B6;
+      --accent: #E3C979;
+      --accent-strong: #EDD596;
+      --accent-fill: #D9C36A;
+      --on-accent: #14201E;
+      --border: #2C4A42;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.55);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F201C;
+    --bg-elevated: #15302B;
+    --surface: #1B3B36;
+    --surface-2: #224842;
+    --fg: #F2EACD;
+    --fg-muted: #AFC0B6;
+    --accent: #E3C979;
+    --accent-strong: #EDD596;
+    --accent-fill: #D9C36A;
+    --on-accent: #14201E;
+    --border: #2C4A42;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.55);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: Manrope, "Noto Sans SC", "Noto Sans TC", "Segoe UI", system-ui, sans-serif;
+    padding-inline: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display { font-family: Fredoka, "Noto Sans SC", "Noto Sans TC", "Segoe UI Rounded", system-ui, sans-serif; text-wrap: balance; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  a { color: inherit; }
+  .wrap { max-width: 1120px; margin-inline: auto; }
+  section { padding-block: 64px; }
+  @media (max-width: 640px) { section { padding-block: 44px; } }
+
+  /* ---------- nav ---------- */
+  .nav {
+    position: sticky; top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    display: flex; flex-wrap: wrap; row-gap: 10px;
+    align-items: center; justify-content: space-between;
+    gap: 16px;
+    padding-block: 14px;
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: Fredoka; font-weight: 600; font-size: 1.05rem; }
+  .brand img { width: 30px; height: 30px; border-radius: 8px; display: block; }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-links { display: flex; align-items: center; gap: 22px; font-size: .92rem; font-weight: 600; }
+  .nav-links a.navlink { color: var(--fg-muted); text-decoration: none; }
+  .nav-links a.navlink:hover { color: var(--fg); }
+  @media (max-width: 760px) { .nav-links .navlink { display: none; } }
+
+  .lang-switch { display: flex; gap: 2px; background: var(--surface-2); padding: 3px; border-radius: 999px; }
+  .lang-btn {
+    border: none; background: transparent; color: var(--fg-muted);
+    font-family: "JetBrains Mono", monospace; font-size: .72rem; font-weight: 700;
+    padding: 5px 10px; border-radius: 999px; cursor: pointer; letter-spacing: .02em;
+  }
+  .lang-btn[aria-pressed="true"] { background: var(--surface); color: var(--fg); box-shadow: var(--shadow); }
+  .lang-btn:hover { color: var(--fg); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 11px 20px; border-radius: 999px; font-weight: 700; font-size: .92rem;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--accent-fill); color: var(--on-accent); box-shadow: var(--shadow); }
+  .btn-primary:hover { filter: brightness(1.04); }
+  .btn-ghost { background: transparent; color: var(--fg); border-color: var(--border); }
+  .btn-ghost:hover { background: var(--surface-2); }
+  .btn-sm { padding: 8px 14px; font-size: .82rem; }
+
+  /* ---------- hero ---------- */
+  .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; padding-top: 56px; }
+  @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 36px; } }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--accent-strong);
+    background: color-mix(in srgb, var(--accent-fill) 22%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent-fill) 50%, transparent);
+    padding: 6px 12px; border-radius: 999px;
+  }
+  .eyebrow .pulse-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--accent-strong); flex: none;
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) { .eyebrow .pulse-dot { animation: none; } }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .45; transform: scale(.72); } }
+
+  .hero h1 { font-size: clamp(2.1rem, 4.4vw, 3.3rem); line-height: 1.22; margin: 18px 0 14px; font-weight: 700; }
+  .hero h1 em { font-style: normal; color: var(--accent-strong); }
+  .hero p.lede { font-size: 1.08rem; color: var(--fg-muted); max-width: 46ch; line-height: 1.7; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .os-hint { margin-top: 14px; font-size: .85rem; color: var(--fg-muted); }
+  .os-hint .mono { color: var(--fg); }
+
+  .mock {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+    padding: 18px; box-shadow: var(--shadow); position: relative;
+  }
+  .mock-titlebar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .mock-title { display: flex; align-items: center; gap: 8px; font-size: .82rem; font-weight: 700; color: var(--fg-muted); }
+  .mock-title img { width: 16px; height: 16px; border-radius: 4px; }
+  .mock-dots { display: flex; gap: 6px; }
+  .mock-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+  .stat-tile {
+    background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px;
+    padding: 11px 12px; min-width: 0;
+  }
+  .stat-tile .label { font-size: .68rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: .04em; font-weight: 700; }
+  .stat-tile .value { font-size: 1.05rem; font-weight: 700; margin-top: 3px; }
+  .chart-card {
+    background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 14px;
+  }
+  .chart-card .cap { font-size: .72rem; font-weight: 700; color: var(--fg-muted); margin-bottom: 10px; display:flex; justify-content: space-between; }
+  .bars { display: flex; align-items: flex-end; gap: 6px; height: 72px; margin-bottom: 10px; }
+  .bars i { flex: 1; border-radius: 4px 4px 0 0; display: block; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px 14px; }
+  .legend span.li { display: inline-flex; align-items: center; gap: 6px; font-size: .72rem; color: var(--fg-muted); font-weight: 600; }
+  .legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: none; }
+  .mock-sample-tag {
+    position: absolute; top: -10px; right: 18px; background: var(--ink); color: var(--cream);
+    font-size: .64rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    padding: 4px 9px; border-radius: 999px; box-shadow: var(--shadow);
+  }
+
+  /* ---------- section headings ---------- */
+  .kicker { font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-strong); }
+  .section-head { max-width: 62ch; margin-bottom: 36px; }
+  .section-head h2 { font-size: clamp(1.5rem, 2.6vw, 2.1rem); margin: 8px 0 10px; }
+  .section-head p { color: var(--fg-muted); line-height: 1.7; }
+
+  /* ---------- feature grid ---------- */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 860px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 22px; box-shadow: var(--shadow); min-width: 0;
+  }
+  .card .ic {
+    width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center;
+    background: color-mix(in srgb, var(--accent-fill) 28%, transparent);
+    margin-bottom: 14px;
+  }
+  .card .ic svg { width: 21px; height: 21px; stroke: var(--accent-strong); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 { font-size: 1.02rem; margin: 0 0 7px; font-family: Manrope, "Noto Sans SC", "Noto Sans TC", sans-serif; font-weight: 800; display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+  .card p { font-size: .9rem; color: var(--fg-muted); line-height: 1.65; margin: 0; }
+  .badge-new {
+    display: inline-block; font-size: .6rem; font-weight: 800; letter-spacing: .05em;
+    background: var(--accent-fill); color: var(--on-accent); padding: 2px 7px; border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  /* ---------- themes strip ---------- */
+  .themes-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  @media (max-width: 760px) { .themes-row { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 460px) { .themes-row { grid-template-columns: repeat(2, 1fr); } }
+  .theme-card { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); }
+  .theme-swatch { height: 64px; position: relative; }
+  .theme-card .theme-name { padding: 9px 10px; font-size: .78rem; font-weight: 700; background: var(--surface); display:flex; align-items:center; gap:6px; flex-wrap: wrap; }
+  .sw-system { background: linear-gradient(135deg, #F6F1E4 50%, #14201E 50%); }
+  .sw-light { background: #F6F1E4; }
+  .sw-light::after, .sw-dark::after, .sw-custom::after, .sw-glass::after {
+    content: ""; position: absolute; inset: 10px; border-radius: 6px; background: rgba(20,32,30,.08);
+  }
+  .sw-dark { background: #14201E; }
+  .sw-dark::after { background: rgba(242,234,205,.1); }
+  .sw-custom { background: linear-gradient(135deg, #241233, #3A1750); }
+  .sw-custom::after { background: rgba(255,255,255,.08); }
+  .sw-glass { background: linear-gradient(135deg, #1B1036, #0E1630, #17243F); position: relative; overflow: hidden; }
+  .sw-glass::before {
+    content: ""; position: absolute; inset: 8px; border-radius: 8px;
+    background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.28);
+    backdrop-filter: blur(6px);
+  }
+
+  /* ---------- privacy ---------- */
+  .privacy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .privacy-grid { grid-template-columns: 1fr; } }
+  .privacy-card { border-radius: 16px; padding: 22px; border: 1px solid var(--border); min-width: 0; }
+  .privacy-card.yes { background: color-mix(in srgb, var(--accent-fill) 14%, var(--surface)); }
+  .privacy-card.no { background: var(--surface); }
+  .privacy-card h3 { margin: 0 0 12px; font-size: .95rem; font-family: Manrope, "Noto Sans SC", "Noto Sans TC", sans-serif; font-weight: 800; }
+  .privacy-card ul { margin: 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .privacy-card li { display: flex; gap: 9px; font-size: .88rem; color: var(--fg-muted); line-height: 1.6; }
+  .privacy-card li svg { flex: none; width: 16px; height: 16px; margin-top: 2px; }
+  .yes svg { stroke: var(--accent-strong); }
+  .no svg { stroke: var(--fg-muted); }
+
+  /* ---------- download ---------- */
+  .dl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .dl-grid { grid-template-columns: 1fr; } }
+  .dl-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow); min-width: 0; }
+  .dl-card.match { border-color: var(--accent-strong); box-shadow: 0 0 0 1px var(--accent-strong), var(--shadow); }
+  .dl-card .plat-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+  .dl-card .plat-head svg { width: 22px; height: 22px; stroke: var(--fg); fill: none; stroke-width: 1.7; flex: none; }
+  .dl-card h3 { margin: 0; font-size: 1.05rem; font-family: Manrope, "Noto Sans SC", "Noto Sans TC", sans-serif; font-weight: 800; }
+  .dl-card .you {
+    font-size: .64rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase;
+    background: var(--accent-fill); color: var(--on-accent); padding: 2px 8px; border-radius: 999px;
+  }
+  .dl-card .formats { font-size: .82rem; color: var(--fg-muted); margin: 10px 0 16px; line-height: 1.6; }
+  .dl-card .formats code { font-family: "JetBrains Mono"; background: var(--surface-2); padding: 1px 5px; border-radius: 5px; font-size: .78rem; }
+
+  footer { border-top: 1px solid var(--border); padding-block: 32px; }
+  .foot-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
+  .foot-brand { display: flex; align-items: center; gap: 9px; font-family: Fredoka; font-weight: 600; color: var(--fg-muted); font-size: .9rem; }
+  .foot-brand img { width: 20px; height: 20px; border-radius: 6px; }
+  .foot-links { display: flex; gap: 18px; font-size: .85rem; color: var(--fg-muted); }
+  .foot-links a { text-decoration: none; }
+  .foot-links a:hover { color: var(--fg); }
+</style>
+</head>
+<body>
+<nav class="nav wrap">
+  <div class="brand"><img id="icon-nav" alt="" /> Cat Eyekeeper</div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a class="navlink" data-i18n="nav.features" href="#features">Features</a>
+      <a class="navlink" data-i18n="nav.themes" href="#themes">Themes</a>
+      <a class="navlink" data-i18n="nav.privacy" href="#privacy">Privacy</a>
+    </div>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="zh">简</button>
+      <button type="button" class="lang-btn" data-lang="zh-hant">繁</button>
+    </div>
+    <a class="btn btn-primary btn-sm" id="cta-nav-download" data-i18n="nav.download" href="#download">Download</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <span class="eyebrow"><span class="pulse-dot"></span><span data-i18n="hero.eyebrow">Windows &amp; Linux &middot; lives in your tray</span></span>
+      <h1 data-i18n="hero.h1">Know when to look <em>away.</em></h1>
+      <p class="lede" data-i18n="hero.lede">Cat Eyekeeper watches how long you've been at the screen — not what's on it — and steps in with a full-screen break reminder before the hours blur together.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" id="cta-hero-download" data-i18n="hero.cta.download" href="#download">Download latest release</a>
+        <a class="btn btn-ghost" id="cta-hero-github" data-i18n="hero.cta.github" href="#" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <p class="os-hint" id="os-hint"></p>
+    </div>
+
+    <div class="mock" id="mock-dashboard" role="img">
+      <span class="mock-sample-tag" data-i18n="mock.sample">Sample view</span>
+      <div class="mock-titlebar">
+        <div class="mock-title"><img alt="" class="mock-icon" /><span data-i18n="mock.titlebar">Cat Eyekeeper — Dashboard</span></div>
+        <div class="mock-dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="label" data-i18n="mock.today">Today</div><div class="value mono">2h 14m</div></div>
+        <div class="stat-tile"><div class="label" data-i18n="mock.nextbreak">Next break</div><div class="value mono">18m</div></div>
+        <div class="stat-tile"><div class="label" data-i18n="mock.status">Status</div><div class="value" data-i18n="mock.active">Active</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="cap"><span data-i18n="mock.thisweek">This week</span><span class="mono">14.6h</span></div>
+        <div class="bars" id="mock-bars"></div>
+        <div class="legend">
+          <span class="li"><i style="background:var(--cat-work)"></i><span data-i18n="cat.work">Work</span></span>
+          <span class="li"><i style="background:var(--cat-social)"></i><span data-i18n="cat.social">Social</span></span>
+          <span class="li"><i style="background:var(--cat-entertainment)"></i><span data-i18n="cat.entertainment">Entertainment</span></span>
+          <span class="li"><i style="background:var(--cat-learning)"></i><span data-i18n="cat.learning">Learning</span></span>
+          <span class="li"><i style="background:var(--cat-system)"></i><span data-i18n="cat.system">System</span></span>
+          <span class="li"><i style="background:var(--cat-other)"></i><span data-i18n="cat.other">Other</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="section-head">
+      <span class="kicker" data-i18n="features.kicker">Features</span>
+      <h2 data-i18n="features.h2">Everything it does, nothing it doesn't.</h2>
+      <p data-i18n="features.sub">A tray-resident tracker built for one job: notice how long you've been looking at the screen, and sort that time into something you can actually read back.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+        <h3 data-i18n="f1.title">Automatic usage tracking</h3>
+        <p data-i18n="f1.desc">Tracks the active foreground app second-by-second and sorts every app into Work, Social, Entertainment, Learning, System, or Other — no manual logging.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></div>
+        <h3 data-i18n="f2.title">Daily &amp; weekly charts</h3>
+        <p data-i18n="f2.desc">A dashboard with today's total, a continuous-use streak, and a category-filterable chart, plus a per-app breakdown of exactly where the time went.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3a5 5 0 0 1 5 5v3a7 7 0 1 1-14 0V8a5 5 0 0 1 5-5"/><path d="M9 21h6"/></svg></div>
+        <h3 data-i18n="f3.title">Full-screen break reminders</h3>
+        <p data-i18n="f3.desc">When continuous use crosses your threshold, an animated overlay takes the screen on every monitor, over a blurred backdrop of your own desktop — and quietly pauses media playback first.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="3"/><path d="M9 7h6M9 11h6M9 15h3"/></svg></div>
+        <h3 data-i18n="f4.title">Animated tray icon</h3>
+        <p data-i18n="f4.desc">Lives quietly in the system tray, its icon animation speeding up with CPU load — an ambient signal you're still being watched over, without a window in your way.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h3><span data-i18n="f5.title">Five themes</span><span class="badge-new" data-i18n="f5.badge">New</span></h3>
+        <p data-i18n="f5.desc">System, Light, Dark, a fully custom color/opacity theme, and the new frosted-glass look — translucent panels over a soft blurred gradient.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3"/></svg></div>
+        <h3 data-i18n="f6.title">Set it and forget it</h3>
+        <p data-i18n="f6.desc">Starts at login, adjustable reminder interval, break length, and idle threshold, and an optional close-early button for when a break really can't wait.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="themes">
+    <div class="section-head">
+      <span class="kicker" data-i18n="themes.kicker">Appearance</span>
+      <h2 data-i18n="themes.h2">Five ways to look at your own habits.</h2>
+      <p data-i18n="themes.sub">Theme switches apply instantly from Settings — including the new Glass look, a frosted, translucent window over a soft gradient.</p>
+    </div>
+    <div class="themes-row">
+      <div class="theme-card"><div class="theme-swatch sw-system"></div><div class="theme-name" data-i18n="theme.system">System</div></div>
+      <div class="theme-card"><div class="theme-swatch sw-light"></div><div class="theme-name" data-i18n="theme.light">Light</div></div>
+      <div class="theme-card"><div class="theme-swatch sw-dark"></div><div class="theme-name" data-i18n="theme.dark">Dark</div></div>
+      <div class="theme-card"><div class="theme-swatch sw-custom"></div><div class="theme-name" data-i18n="theme.custom">Custom</div></div>
+      <div class="theme-card"><div class="theme-swatch sw-glass"></div><div class="theme-name"><span data-i18n="theme.glass">Glass</span> <span class="badge-new" data-i18n="theme.new">New</span></div></div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="section-head">
+      <span class="kicker" data-i18n="privacy.kicker">Privacy</span>
+      <h2 data-i18n="privacy.h2">Stored on your disk. Nowhere else.</h2>
+      <p data-i18n="privacy.sub">Every number lives in a local JSON file this app writes itself — there is no account, no server, and no upload path for any of it to leave your machine.</p>
+    </div>
+    <div class="privacy-grid">
+      <div class="privacy-card yes">
+        <h3 data-i18n="privacy.yes.title">What it records</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="privacy.yes.1">App display name &amp; process name</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="privacy.yes.2">Executable path</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="privacy.yes.3">Active seconds &amp; category</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="privacy.yes.4">Reminder events</span></li>
+        </ul>
+      </div>
+      <div class="privacy-card no">
+        <h3 data-i18n="privacy.no.title">What it never records</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span data-i18n="privacy.no.1">Keystrokes</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span data-i18n="privacy.no.2">Screenshots or screen recordings</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span data-i18n="privacy.no.3">Chat or document content</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span data-i18n="privacy.no.4">Browser URLs or account data</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="download">
+    <div class="section-head">
+      <span class="kicker" data-i18n="download.kicker">Download</span>
+      <h2 data-i18n="download.h2">Get the latest release.</h2>
+      <p data-i18n="download.sub">Builds are published as GitHub Releases for Windows and Linux. The buttons below always open the newest one.</p>
+    </div>
+    <div class="dl-grid">
+      <div class="dl-card" id="dl-windows">
+        <div class="plat-head">
+          <svg viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.4V11.4H3V5.5Z"/><path d="M11.5 4.3 21 3V11.3H11.5V4.3Z"/><path d="M3 12.3H10.5V19.5L3 18.4V12.3Z"/><path d="M11.5 12.3H21V20.6L11.5 19.3V12.3Z"/></svg>
+          <h3>Windows</h3>
+          <span class="you" hidden data-i18n="dl.youre_here">You're here</span>
+        </div>
+        <div class="formats" data-i18n="dl.windows.formats">Portable <code>.zip</code>, a <code>.msi</code> installer, or <code>.msix</code> — all on the same release.</div>
+        <a class="btn btn-primary" data-i18n="dl.button" href="#" target="_blank" rel="noopener">Go to latest release</a>
+      </div>
+      <div class="dl-card" id="dl-linux">
+        <div class="plat-head">
+          <svg viewBox="0 0 24 24"><path d="M12 2c1.5 2 1.5 3.5.7 5.2-.8 1.6-.7 2.8.3 3.8"/><path d="M8 20c0-3 1-4 1-6.5S10.5 9 12 9s2.5 2 2.5 4.5S16 17 16 20"/><path d="M6 20h12"/></svg>
+          <h3>Linux</h3>
+          <span class="you" hidden data-i18n="dl.youre_here">You're here</span>
+        </div>
+        <div class="formats" data-i18n="dl.linux.formats">A <code>.deb</code> package, built via fastforge.</div>
+        <a class="btn btn-primary" data-i18n="dl.button" href="#" target="_blank" rel="noopener">Go to latest release</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="foot-row">
+    <div class="foot-brand"><img alt="" class="mock-icon" /> Cat Eyekeeper</div>
+    <div class="foot-links">
+      <a href="#" id="foot-github" target="_blank" rel="noopener">GitHub</a>
+      <a href="#features" data-i18n="nav.features">Features</a>
+      <a href="#privacy" data-i18n="nav.privacy">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // TODO: replace with the real "owner/repo" once the project is published —
+  // every download/GitHub link on the page is built from this one constant.
+  var GITHUB_REPO = "";
+  var hasRepo = /^[\w.-]+\/[\w.-]+$/.test(GITHUB_REPO);
+  var repoUrl = hasRepo ? "https://github.com/" + GITHUB_REPO : "#";
+  var releasesUrl = hasRepo ? repoUrl + "/releases/latest" : "#";
+
+  var pendingLinks = [];
+  ["cta-hero-github", "foot-github"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.href = repoUrl;
+    if (!hasRepo) pendingLinks.push(el);
+  });
+  ["cta-nav-download", "cta-hero-download"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.href = releasesUrl;
+    if (!hasRepo) pendingLinks.push(el);
+  });
+  document.querySelectorAll("#dl-windows a, #dl-linux a").forEach(function (a) {
+    a.href = releasesUrl;
+    if (!hasRepo) pendingLinks.push(a);
+  });
+  if (!hasRepo) {
+    pendingLinks.forEach(function (a) {
+      a.setAttribute("aria-disabled", "true");
+      a.addEventListener("click", function (e) { e.preventDefault(); });
+      a.style.opacity = ".55";
+      a.style.cursor = "not-allowed";
+    });
+  }
+
+  var ICON = "data:image/png;base64,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";
+  document.querySelectorAll("#icon-nav, .mock-icon").forEach(function (img) {
+    img.src = ICON;
+  });
+
+  // OS detection — cosmetic only (highlights the matching platform card and
+  // hero hint text); every link still points at the same releases page.
+  var ua = navigator.userAgent || "";
+  var platform = /Windows/i.test(ua) ? "windows" : (/Linux/i.test(ua) && !/Android/i.test(ua) ? "linux" : null);
+  if (platform === "windows") {
+    document.getElementById("dl-windows").classList.add("match");
+    document.querySelector("#dl-windows .you").hidden = false;
+  } else if (platform === "linux") {
+    document.getElementById("dl-linux").classList.add("match");
+    document.querySelector("#dl-linux .you").hidden = false;
+  }
+
+  // Mock weekly bar chart — seven plausible, clearly-labeled sample days,
+  // stacked by the app's real category colors. Language-independent, built once.
+  var catVars = ["--cat-work", "--cat-social", "--cat-entertainment", "--cat-learning", "--cat-system", "--cat-other"];
+  var days = [
+    [1.8, 0.6, 0.3, 0.2, 0.3, 0.1],
+    [2.4, 0.4, 0.5, 0.1, 0.2, 0.1],
+    [1.2, 0.3, 0.2, 0.6, 0.2, 0.1],
+    [2.1, 0.7, 0.4, 0.3, 0.3, 0.2],
+    [1.9, 0.5, 0.6, 0.2, 0.2, 0.1],
+    [0.4, 0.8, 1.6, 0.1, 0.1, 0.1],
+    [0.3, 0.5, 1.1, 0.4, 0.1, 0.1]
+  ];
+  var max = Math.max.apply(null, days.map(function (d) { return d.reduce(function (a, b) { return a + b; }, 0); }));
+  var barsRoot = document.getElementById("mock-bars");
+  days.forEach(function (stack) {
+    var col = document.createElement("i");
+    var total = stack.reduce(function (a, b) { return a + b; }, 0);
+    var h = Math.round((total / max) * 100);
+    col.style.height = Math.max(h, 6) + "%";
+    var stops = [];
+    var acc = 0;
+    stack.forEach(function (v, i) {
+      var from = (acc / total) * 100;
+      acc += v;
+      var to = (acc / total) * 100;
+      stops.push("var(" + catVars[i] + ") " + from.toFixed(1) + "% " + to.toFixed(1) + "%");
+    });
+    col.style.background = "linear-gradient(0deg, " + stops.join(", ") + ")";
+    barsRoot.appendChild(col);
+  });
+
+  // ---------------- i18n ----------------
+  var I18N = {
+    en: {
+      "nav.features": "Features", "nav.themes": "Themes", "nav.privacy": "Privacy", "nav.download": "Download",
+      "hero.eyebrow": "Windows &amp; Linux &middot; lives in your tray",
+      "hero.h1": "Know when to look <em>away.</em>",
+      "hero.lede": "Cat Eyekeeper watches how long you've been at the screen — not what's on it — and steps in with a full-screen break reminder before the hours blur together.",
+      "hero.cta.download": "Download latest release",
+      "hero.cta.github": "View on GitHub",
+      "mock.aria": "Sample dashboard showing today's usage, next break, and a weekly category chart",
+      "os.windows": 'Detected <span class="mono">Windows</span> — the latest release has a portable .zip, .msi, and .msix.',
+      "os.linux": 'Detected <span class="mono">Linux</span> — the latest release has a .deb package.',
+      "os.fallback": "Windows and Linux builds are both on the releases page.",
+      "mock.sample": "Sample view", "mock.titlebar": "Cat Eyekeeper — Dashboard",
+      "mock.today": "Today", "mock.nextbreak": "Next break", "mock.status": "Status", "mock.active": "Active", "mock.thisweek": "This week",
+      "cat.work": "Work", "cat.social": "Social", "cat.entertainment": "Entertainment", "cat.learning": "Learning", "cat.system": "System", "cat.other": "Other",
+      "features.kicker": "Features",
+      "features.h2": "Everything it does, nothing it doesn't.",
+      "features.sub": "A tray-resident tracker built for one job: notice how long you've been looking at the screen, and sort that time into something you can actually read back.",
+      "f1.title": "Automatic usage tracking",
+      "f1.desc": "Tracks the active foreground app second-by-second and sorts every app into Work, Social, Entertainment, Learning, System, or Other — no manual logging.",
+      "f2.title": "Daily &amp; weekly charts",
+      "f2.desc": "A dashboard with today's total, a continuous-use streak, and a category-filterable chart, plus a per-app breakdown of exactly where the time went.",
+      "f3.title": "Full-screen break reminders",
+      "f3.desc": "When continuous use crosses your threshold, an animated overlay takes the screen on every monitor, over a blurred backdrop of your own desktop — and quietly pauses media playback first.",
+      "f4.title": "Animated tray icon",
+      "f4.desc": "Lives quietly in the system tray, its icon animation speeding up with CPU load — an ambient signal you're still being watched over, without a window in your way.",
+      "f5.title": "Five themes", "f5.badge": "New",
+      "f5.desc": "System, Light, Dark, a fully custom color/opacity theme, and the new frosted-glass look — translucent panels over a soft blurred gradient.",
+      "f6.title": "Set it and forget it",
+      "f6.desc": "Starts at login, adjustable reminder interval, break length, and idle threshold, and an optional close-early button for when a break really can't wait.",
+      "themes.kicker": "Appearance",
+      "themes.h2": "Five ways to look at your own habits.",
+      "themes.sub": "Theme switches apply instantly from Settings — including the new Glass look, a frosted, translucent window over a soft gradient.",
+      "theme.system": "System", "theme.light": "Light", "theme.dark": "Dark", "theme.custom": "Custom", "theme.glass": "Glass", "theme.new": "New",
+      "privacy.kicker": "Privacy",
+      "privacy.h2": "Stored on your disk. Nowhere else.",
+      "privacy.sub": "Every number lives in a local JSON file this app writes itself — there is no account, no server, and no upload path for any of it to leave your machine.",
+      "privacy.yes.title": "What it records", "privacy.no.title": "What it never records",
+      "privacy.yes.1": "App display name &amp; process name", "privacy.yes.2": "Executable path",
+      "privacy.yes.3": "Active seconds &amp; category", "privacy.yes.4": "Reminder events",
+      "privacy.no.1": "Keystrokes", "privacy.no.2": "Screenshots or screen recordings",
+      "privacy.no.3": "Chat or document content", "privacy.no.4": "Browser URLs or account data",
+      "download.kicker": "Download",
+      "download.h2": "Get the latest release.",
+      "download.sub": "Builds are published as GitHub Releases for Windows and Linux. The buttons below always open the newest one.",
+      "dl.windows.formats": "Portable <code>.zip</code>, a <code>.msi</code> installer, or <code>.msix</code> — all on the same release.",
+      "dl.linux.formats": "A <code>.deb</code> package, built via fastforge.",
+      "dl.button": "Go to latest release", "dl.youre_here": "You're here",
+      "dl.pending": "GitHub repository link pending"
+    },
+    zh: {
+      "nav.features": "功能", "nav.themes": "主题", "nav.privacy": "隐私", "nav.download": "下载",
+      "hero.eyebrow": "Windows 与 Linux &middot; 常驻系统托盘",
+      "hero.h1": "该<em>休息</em>的时候，让它提醒你。",
+      "hero.lede": "Cat Eyekeeper 只记录你盯着屏幕多久，不看你在看什么——在时间悄悄流逝之前，用全屏提醒把你拉回来休息。",
+      "hero.cta.download": "下载最新版本",
+      "hero.cta.github": "在 GitHub 上查看",
+      "mock.aria": "示例仪表板：今日使用时长、距下次休息，以及按分类划分的每周图表",
+      "os.windows": '检测到你在使用 <span class="mono">Windows</span> —— 最新版本提供便携版 .zip、.msi 安装包与 .msix。',
+      "os.linux": '检测到你在使用 <span class="mono">Linux</span> —— 最新版本提供 .deb 安装包。',
+      "os.fallback": "Releases 页面同时提供 Windows 与 Linux 版本。",
+      "mock.sample": "示例画面", "mock.titlebar": "Cat Eyekeeper — 仪表板",
+      "mock.today": "今日使用", "mock.nextbreak": "距下次休息", "mock.status": "运行状态", "mock.active": "活跃", "mock.thisweek": "本周",
+      "cat.work": "工作", "cat.social": "社交", "cat.entertainment": "娱乐", "cat.learning": "学习", "cat.system": "系统", "cat.other": "其他",
+      "features.kicker": "功能",
+      "features.h2": "该有的都有，不该有的一个没有。",
+      "features.sub": "一个常驻系统托盘的追踪工具，只做一件事：记录你看屏幕的时间，并把它整理成看得懂的统计。",
+      "f1.title": "自动使用时间追踪",
+      "f1.desc": "逐秒追踪当前使用中的应用程序，并自动归类为工作、社交、娱乐、学习、系统或其他——完全不用手动记录。",
+      "f2.title": "每日与每周图表",
+      "f2.desc": "仪表板显示今日总时长、连续使用时间，以及可依分类筛选的图表，还有逐个应用程序的时间明细。",
+      "f3.title": "全屏休息提醒",
+      "f3.desc": "连续使用超过设定时间后，会在每个屏幕上显示动画全屏提醒，背景是你桌面的模糊画面——而且会先自动暂停正在播放的媒体。",
+      "f4.title": "托盘动画图标",
+      "f4.desc": "安静地待在系统托盘里，图标动画速度会随 CPU 负载变化——不开窗口，也能感觉到它一直在。",
+      "f5.title": "五种主题", "f5.badge": "新增",
+      "f5.desc": "跟随系统、浅色、深色、完全自定义颜色与透明度，再加上全新的玻璃质感——半透明面板叠在柔和渐层背景上。",
+      "f6.title": "设定好就不用再管",
+      "f6.desc": "开机自动启动，提醒间隔、休息时长与闲置判定时间都可调整，还可以开启「提前关闭」按钮，应付真的走不开的时候。",
+      "themes.kicker": "外观",
+      "themes.h2": "用五种样子，看你自己的习惯。",
+      "themes.sub": "主题切换在设置中即时生效——包括全新的玻璃外观：半透明窗口叠在柔和渐层背景上，带有毛玻璃质感。",
+      "theme.system": "跟随系统", "theme.light": "浅色", "theme.dark": "深色", "theme.custom": "自定义", "theme.glass": "玻璃", "theme.new": "新增",
+      "privacy.kicker": "隐私",
+      "privacy.h2": "只存在你的硬盘里，哪里都不去。",
+      "privacy.sub": "每一个数字都存在这个程序自己写入的本机 JSON 文件里——没有账号、没有服务器，也没有任何上传的路径。",
+      "privacy.yes.title": "会记录的", "privacy.no.title": "绝不会记录的",
+      "privacy.yes.1": "应用程序显示名称与处理程序名称", "privacy.yes.2": "执行档路径",
+      "privacy.yes.3": "活跃秒数与分类", "privacy.yes.4": "提醒事件记录",
+      "privacy.no.1": "键盘输入内容", "privacy.no.2": "屏幕截图或录屏",
+      "privacy.no.3": "聊天或文件内容", "privacy.no.4": "浏览器网址或账号数据",
+      "download.kicker": "下载",
+      "download.h2": "获取最新版本。",
+      "download.sub": "所有版本都以 GitHub Releases 的形式发布，支持 Windows 与 Linux。下方按钮永远指向最新的一个。",
+      "dl.windows.formats": "便携版 <code>.zip</code>、<code>.msi</code> 安装程序，或 <code>.msix</code>——都在同一个版本里。",
+      "dl.linux.formats": "<code>.deb</code> 安装包，使用 fastforge 构建。",
+      "dl.button": "前往最新版本", "dl.youre_here": "是你",
+      "dl.pending": "GitHub 仓库链接待补充"
+    },
+    "zh-hant": {
+      "nav.features": "功能", "nav.themes": "主題", "nav.privacy": "隱私", "nav.download": "下載",
+      "hero.eyebrow": "Windows 與 Linux &middot; 常駐系統匣",
+      "hero.h1": "該<em>休息</em>的時候，讓它提醒你。",
+      "hero.lede": "Cat Eyekeeper 只記錄你盯著螢幕多久，不看你在看什麼——在時間悄悄流逝之前，用全螢幕提醒把你拉回來休息。",
+      "hero.cta.download": "下載最新版本",
+      "hero.cta.github": "在 GitHub 上查看",
+      "mock.aria": "示範儀表板：今日使用時長、距下次休息，以及按分類劃分的每週圖表",
+      "os.windows": '偵測到你在使用 <span class="mono">Windows</span> —— 最新版本提供免安裝 .zip、.msi 安裝程式與 .msix。',
+      "os.linux": '偵測到你在使用 <span class="mono">Linux</span> —— 最新版本提供 .deb 安裝包。',
+      "os.fallback": "Releases 頁面同時提供 Windows 與 Linux 版本。",
+      "mock.sample": "示範畫面", "mock.titlebar": "Cat Eyekeeper — 儀表板",
+      "mock.today": "今日使用", "mock.nextbreak": "距下次休息", "mock.status": "運行狀態", "mock.active": "活躍", "mock.thisweek": "本週",
+      "cat.work": "工作", "cat.social": "社交", "cat.entertainment": "娛樂", "cat.learning": "學習", "cat.system": "系統", "cat.other": "其他",
+      "features.kicker": "功能",
+      "features.h2": "該有的都有，不該有的一個沒有。",
+      "features.sub": "一個常駐系統匣的追蹤工具，只做一件事：記錄你看螢幕的時間，並把它整理成看得懂的統計。",
+      "f1.title": "自動使用時間追蹤",
+      "f1.desc": "逐秒追蹤目前使用中的應用程式，並自動歸類為工作、社交、娛樂、學習、系統或其他——完全不用手動記錄。",
+      "f2.title": "每日與每週圖表",
+      "f2.desc": "儀表板顯示今日總時長、連續使用時間，以及可依分類篩選的圖表，還有逐個應用程式的時間明細。",
+      "f3.title": "全螢幕休息提醒",
+      "f3.desc": "連續使用超過設定時間後，會在每個螢幕上顯示動畫全螢幕提醒，背景是你桌面的模糊畫面——而且會先自動暫停正在播放的媒體。",
+      "f4.title": "系統匣動畫圖示",
+      "f4.desc": "安靜地待在系統匣裡，圖示動畫速度會隨 CPU 負載變化——不開視窗，也能感覺到它一直在。",
+      "f5.title": "五種主題", "f5.badge": "新增",
+      "f5.desc": "跟隨系統、淺色、深色、完全自訂顏色與透明度，再加上全新的玻璃質感——半透明面板疊在柔和漸層背景上。",
+      "f6.title": "設定好就不用再管",
+      "f6.desc": "開機自動啟動，提醒間隔、休息時長與閒置判定時間都可調整，還可以開啟「提前關閉」按鈕，應付真的走不開的時候。",
+      "themes.kicker": "外觀",
+      "themes.h2": "用五種樣子，看你自己的習慣。",
+      "themes.sub": "主題切換在設定中即時生效——包括全新的玻璃外觀：半透明視窗疊在柔和漸層背景上，帶有毛玻璃質感。",
+      "theme.system": "跟隨系統", "theme.light": "淺色", "theme.dark": "深色", "theme.custom": "自訂", "theme.glass": "玻璃", "theme.new": "新增",
+      "privacy.kicker": "隱私",
+      "privacy.h2": "只存在你的硬碟裡，哪裡都不去。",
+      "privacy.sub": "每一個數字都存在這個程式自己寫入的本機 JSON 檔案裡——沒有帳號、沒有伺服器，也沒有任何上傳的路徑。",
+      "privacy.yes.title": "會記錄的", "privacy.no.title": "絕不會記錄的",
+      "privacy.yes.1": "應用程式顯示名稱與處理程序名稱", "privacy.yes.2": "執行檔路徑",
+      "privacy.yes.3": "活躍秒數與分類", "privacy.yes.4": "提醒事件記錄",
+      "privacy.no.1": "鍵盤輸入內容", "privacy.no.2": "螢幕截圖或錄影",
+      "privacy.no.3": "聊天或文件內容", "privacy.no.4": "瀏覽器網址或帳號資料",
+      "download.kicker": "下載",
+      "download.h2": "取得最新版本。",
+      "download.sub": "所有版本都以 GitHub Releases 的形式發布，支援 Windows 與 Linux。下方按鈕永遠指向最新的一個。",
+      "dl.windows.formats": "免安裝 <code>.zip</code>、<code>.msi</code> 安裝程式，或 <code>.msix</code>——都在同一個版本裡。",
+      "dl.linux.formats": "<code>.deb</code> 安裝包，使用 fastforge 建置。",
+      "dl.button": "前往最新版本", "dl.youre_here": "是你",
+      "dl.pending": "GitHub 倉庫連結待補上"
+    }
+  };
+
+  function detectLang() {
+    try {
+      var saved = localStorage.getItem("cek_lang");
+      if (saved && I18N[saved]) return saved;
+    } catch (e) {}
+    var navLang = (navigator.language || "en").toLowerCase();
+    if (navLang.indexOf("zh") === 0) {
+      return /hant|-tw|-hk|-mo/.test(navLang) ? "zh-hant" : "zh";
+    }
+    return "en";
+  }
+
+  var currentLang = detectLang();
+
+  function render() {
+    var dict = I18N[currentLang];
+    document.documentElement.lang = currentLang === "zh-hant" ? "zh-Hant" : currentLang;
+
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n");
+      if (dict[key] != null) el.innerHTML = dict[key];
+    });
+
+    var mockEl = document.getElementById("mock-dashboard");
+    if (mockEl) mockEl.setAttribute("aria-label", dict["mock.aria"]);
+
+    var hint = document.getElementById("os-hint");
+    if (platform === "windows") hint.innerHTML = dict["os.windows"];
+    else if (platform === "linux") hint.innerHTML = dict["os.linux"];
+    else hint.textContent = dict["os.fallback"];
+
+    if (!hasRepo) {
+      pendingLinks.forEach(function (a) { a.title = dict["dl.pending"]; });
+    }
+
+    document.querySelectorAll(".lang-btn").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-lang") === currentLang ? "true" : "false");
+    });
+  }
+
+  document.querySelectorAll(".lang-btn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      currentLang = b.getAttribute("data-lang");
+      try { localStorage.setItem("cek_lang", currentLang); } catch (e) {}
+      render();
+    });
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!--
+  WiX v6 installer source for Cat Eyekeeper. Built by tool/package_windows.ps1
+  via `wix build`, which passes three preprocessor variables:
+    ReleaseDir   - the flutter build windows release output directory
+                   (build/windows/x64/runner/Release), harvested wholesale
+                   via <Files Include>, so adding/removing bundled DLLs
+                   never requires touching this file.
+    AppVersion   - pubspec.yaml's version (MSI requires three numeric
+                   parts; pubspec's build-number suffix is dropped by the
+                   script before it gets here).
+    InstallerDir - this file's own directory; unused today (no custom
+                   banner/dialog bitmaps yet) but passed through so a
+                   future one has a base path to resolve against.
+
+  UpgradeCode is a fixed, randomly-generated GUID that must never change
+  across releases — it's what lets a newer .msi upgrade-in-place over an
+  older one instead of installing side-by-side.
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package Name="Cat Eyekeeper"
+           Manufacturer="CatTimothy"
+           Version="$(AppVersion)"
+           UpgradeCode="174F7BED-68C3-49E2-854A-1FE95F7025E1"
+           Scope="perUserOrMachine">
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of Cat Eyekeeper is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="Cat Eyekeeper">
+        <Files Include="$(ReleaseDir)\**" />
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ApplicationProgramsFolder" Name="Cat Eyekeeper">
+        <Component Id="ApplicationShortcut" Guid="6C4C0D7E-6E6B-4C3D-9B0B-6E2E9E5B9B1E">
+          <Shortcut Id="AppStartMenuShortcut"
+                    Name="Cat Eyekeeper"
+                    Target="[INSTALLFOLDER]cat_eyekeeper.exe"
+                    WorkingDirectory="INSTALLFOLDER" />
+          <RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall" />
+          <RegistryValue Root="HKCU"
+                          Key="Software\CatTimothy\CatEyekeeper"
+                          Name="installed"
+                          Type="integer"
+                          Value="1"
+                          KeyPath="yes" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+  </Package>
+</Wix>

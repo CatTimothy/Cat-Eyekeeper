@@ -21,10 +21,8 @@ import '../data/services/app/tray_service.dart';
 import '../data/services/app/update_service.dart';
 import '../data/services/app/window_shell.dart';
 
-// TODO: point this at the GitHub repo this app is actually released from
-// before shipping — see services/update_service.dart.
-const _updateCheckRepoOwner = 'YOUR_GITHUB_OWNER';
-const _updateCheckRepoName = 'YOUR_GITHUB_REPO';
+const _updateCheckRepoOwner = 'CatTimothy';
+const _updateCheckRepoName = 'Cat-Eyekeeper';
 
 /// The `instanceName` [initialSettings] is registered under — distinct from
 /// the plain `Settings` type so a later live/current-settings registration

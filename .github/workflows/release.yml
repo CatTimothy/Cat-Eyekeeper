@@ -1,0 +1,73 @@
+name: Release
+
+# Triggered by pushing a version tag (e.g. `git tag v0.1.0 && git push origin v0.1.0`).
+# workflow_dispatch lets you re-run packaging for an existing tag by hand
+# (e.g. after fixing something) without having to re-tag.
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to package and (re-)release, e.g. v0.1.0"
+        required: true
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - run: flutter pub get
+
+      # WiX v6 CLI + the UI extension used by windows/installer/cat_eyekeeper.wxs
+      # (see tool/package_windows.ps1's header for why v6, not v7).
+      - name: Install WiX v6
+        run: |
+          dotnet tool install --global wix --version 6.0.2
+          wix extension add -g WixToolset.UI.wixext/6.0.2
+
+      - name: Package (zip + msi + msix)
+        run: pwsh tool/package_windows.ps1
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: windows-packages
+          path: |
+            build/windows/*.zip
+            build/windows/*.msi
+            build/windows/*.msix
+          if-no-files-found: error
+
+  # Linux packaging (tool/package_linux.sh, a .deb via fastforge) is
+  # deliberately not wired up here yet — see that script's own header: it
+  # has never been build-tested on a real Linux machine, and fastforge's
+  # config format has moved around across versions, so a config written
+  # blind could fail in a way that's hard to debug from CI logs alone.
+  # Add a `linux` job here once tool/package_linux.sh has been run
+  # successfully at least once (this runner is a real Linux box, so it's
+  # a fine place to do that first real test run).
+
+  release:
+    needs: [windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          name: windows-packages
+          path: dist
+
+      - uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          generate_release_notes: true
+          files: dist/*

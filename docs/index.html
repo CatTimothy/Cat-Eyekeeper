@@ -457,9 +457,8 @@
 
 <script>
 (function () {
-  // TODO: replace with the real "owner/repo" once the project is published —
-  // every download/GitHub link on the page is built from this one constant.
-  var GITHUB_REPO = "";
+  // Every download/GitHub link on the page is built from this one constant.
+  var GITHUB_REPO = "CatTimothy/Cat-Eyekeeper";
   var hasRepo = /^[\w.-]+\/[\w.-]+$/.test(GITHUB_REPO);
   var repoUrl = hasRepo ? "https://github.com/" + GITHUB_REPO : "#";
   var releasesUrl = hasRepo ? repoUrl + "/releases/latest" : "#";

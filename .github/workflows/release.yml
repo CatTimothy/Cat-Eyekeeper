@@ -29,9 +29,15 @@ jobs:
 
       # WiX v6 CLI + the UI extension used by windows/installer/cat_eyekeeper.wxs
       # (see tool/package_windows.ps1's header for why v6, not v7).
+      # `dotnet tool install --global` only updates the *current* process's
+      # PATH — each step here runs in its own fresh pwsh.exe, so without
+      # appending the tools dir to $GITHUB_PATH, the next step's `wix build`
+      # call can't find the `wix` command even though it installed fine here.
       - name: Install WiX v6
         run: |
           dotnet tool install --global wix --version 6.0.2
+          "$env:USERPROFILE\.dotnet\tools" | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+          $env:PATH = "$env:USERPROFILE\.dotnet\tools;$env:PATH"
           wix extension add -g WixToolset.UI.wixext/6.0.2
 
       - name: Package (zip + msi + msix)

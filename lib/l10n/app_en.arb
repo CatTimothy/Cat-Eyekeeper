@@ -1,0 +1,211 @@
+{
+  "@@locale": "en",
+  "appTitle": "Cat Eyekeeper",
+  "@appTitle": {
+    "description": "The application's display name, shown in window titles and the tray tooltip."
+  },
+
+  "trayOpenDashboard": "Open Dashboard",
+  "@trayOpenDashboard": {
+    "description": "Tray context menu item that opens the main dashboard window."
+  },
+  "traySettings": "Settings",
+  "@traySettings": {
+    "description": "Tray context menu item that opens the settings screen."
+  },
+  "trayExit": "Exit",
+  "@trayExit": {
+    "description": "Tray context menu item that quits the app."
+  },
+  "trayStatusActive": "Active",
+  "@trayStatusActive": {
+    "description": "Status word: the user is actively using the computer. Shared by the tray tooltip and dashboard status card."
+  },
+  "trayStatusIdle": "Idle",
+  "@trayStatusIdle": {
+    "description": "Status word: no recent keyboard/mouse/gamepad activity. Shared by the tray tooltip and dashboard status card."
+  },
+  "trayStatusPaused": "Paused",
+  "@trayStatusPaused": {
+    "description": "Status word: tracking is manually paused. Shared by the tray tooltip and dashboard status card."
+  },
+  "trayTooltipSummary": "{status} · Today {todayDuration} · CPU {cpuPercent}%",
+  "@trayTooltipSummary": {
+    "description": "Tray icon hover tooltip: current status, today's usage total, and CPU load.",
+    "placeholders": {
+      "status": { "type": "String" },
+      "todayDuration": { "type": "String" },
+      "cpuPercent": { "type": "String" }
+    }
+  },
+  "trayUpdateAvailableTitle": "A new version is available",
+  "@trayUpdateAvailableTitle": {
+    "description": "Title of the system notification shown when an app update is found."
+  },
+  "trayUpdateAvailableBody": "Version {version} is available. Click to download.",
+  "@trayUpdateAvailableBody": {
+    "description": "Body of the system notification shown when an app update is found.",
+    "placeholders": {
+      "version": { "type": "String" }
+    }
+  },
+
+  "settingsScreenTitle": "Settings",
+  "@settingsScreenTitle": { "description": "Window title / heading for the settings screen." },
+  "aboutScreenTitle": "About",
+  "@aboutScreenTitle": { "description": "Window title / heading for the about screen." },
+
+  "dashboardOpenSettings": "Settings",
+  "@dashboardOpenSettings": { "description": "Dashboard button that opens the settings screen." },
+  "dashboardOpenAbout": "About",
+  "@dashboardOpenAbout": { "description": "Dashboard button that opens the about screen." },
+  "dashboardTodayUsage": "Today's usage",
+  "@dashboardTodayUsage": { "description": "Stat card label: today's total active time." },
+  "dashboardContinuousUsage": "Continuous usage",
+  "@dashboardContinuousUsage": { "description": "Stat card label: current continuous-active streak." },
+  "dashboardNextBreak": "Next break in",
+  "@dashboardNextBreak": { "description": "Stat card label: time remaining until the next reminder threshold." },
+  "dashboardRunningStatus": "Status",
+  "@dashboardRunningStatus": { "description": "Stat card label: current tracking status." },
+  "dashboardIdleSeconds": "{seconds}s idle",
+  "@dashboardIdleSeconds": {
+    "description": "Status card value: how many seconds since the last input (0 while active).",
+    "placeholders": { "seconds": { "type": "int" } }
+  },
+  "dashboardAppCount": "{count} apps tracked today",
+  "@dashboardAppCount": {
+    "description": "Status detail line showing how many distinct apps were used today.",
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "dashboardLastUpdated": "Updated {time}",
+  "@dashboardLastUpdated": {
+    "description": "Status detail line showing when the status card last refreshed.",
+    "placeholders": { "time": { "type": "String" } }
+  },
+  "dashboardDailyView": "Daily",
+  "@dashboardDailyView": { "description": "Chart view toggle: show a single day, broken down by hour." },
+  "dashboardWeeklyView": "Weekly",
+  "@dashboardWeeklyView": { "description": "Chart view toggle: show a week, broken down by day." },
+  "dashboardPeriodTotal": "Total {duration}",
+  "@dashboardPeriodTotal": {
+    "description": "Total duration for the currently-viewed chart period (or a clicked bar's own value).",
+    "placeholders": { "duration": { "type": "String" } }
+  },
+  "dashboardWeeklyAverage": "Avg {duration}/day",
+  "@dashboardWeeklyAverage": {
+    "description": "Average daily duration line label, shown only in weekly view.",
+    "placeholders": { "duration": { "type": "String" } }
+  },
+  "dashboardAppListHeader": "App usage",
+  "@dashboardAppListHeader": { "description": "Header above the per-app usage list." },
+  "dashboardColumnApp": "App",
+  "@dashboardColumnApp": { "description": "App usage list column header." },
+  "dashboardColumnCategory": "Category",
+  "@dashboardColumnCategory": { "description": "App usage list column header." },
+  "dashboardColumnTime": "Time",
+  "@dashboardColumnTime": { "description": "App usage list column header." },
+  "dashboardColumnDailyAverage": "Daily avg",
+  "@dashboardColumnDailyAverage": { "description": "App usage list column header: this week's daily average for the app." },
+  "dashboardColumnShare": "Share",
+  "@dashboardColumnShare": { "description": "App usage list column header: percentage share of total tracked time." },
+  "dashboardEmptyState": "No activity tracked yet for this period.",
+  "@dashboardEmptyState": { "description": "Shown in the app list when there is no usage data for the selected period." },
+
+  "categoryWork": "Work",
+  "categorySocial": "Social",
+  "categoryEntertainment": "Entertainment",
+  "categoryLearning": "Learning",
+  "categorySystem": "System",
+  "categoryOther": "Other",
+
+  "settingsGroupReminderRules": "Reminder rules",
+  "settingsGroupAppearance": "Appearance & reminder",
+  "settingsGroupSystemBehavior": "System behavior",
+  "settingsGroupPrivacy": "Privacy & data",
+
+  "settingsReminderEnabled": "Enable break reminders",
+  "settingsAllowCloseFullscreenReminder": "Allow closing the reminder early",
+  "settingsReminderInterval": "Remind after continuous use of",
+  "settingsReminderIntervalUnit": "{minutes} min",
+  "@settingsReminderIntervalUnit": {
+    "placeholders": { "minutes": { "type": "int" } }
+  },
+  "settingsBreakDuration": "Break countdown length",
+  "settingsIdleThreshold": "Idle threshold (no input for)",
+  "settingsIdleThresholdUnit": "{seconds} sec",
+  "@settingsIdleThresholdUnit": {
+    "placeholders": { "seconds": { "type": "int" } }
+  },
+  "settingsValidationRange": "Enter a value between {min} and {max}.",
+  "@settingsValidationRange": {
+    "description": "Validation error for an out-of-range numeric settings field.",
+    "placeholders": { "min": { "type": "int" }, "max": { "type": "int" } }
+  },
+
+  "settingsThemeMode": "Theme",
+  "settingsThemeSystem": "Follow system",
+  "settingsThemeLight": "Light",
+  "settingsThemeDark": "Dark",
+  "settingsThemeCustom": "Custom",
+  "settingsThemeGlass": "Glass",
+  "settingsCustomizeButton": "Customize…",
+  "customThemeDialogTitle": "Custom Theme",
+  "customThemeBackground": "Background",
+  "customThemeWidgets": "Widgets",
+  "customThemeAccent": "Accent",
+  "customThemeText": "Text",
+  "customThemeOpacity": "Opacity",
+  "customThemeApply": "Apply",
+  "customThemePreview": "Preview",
+
+  "settingsLanguage": "Language",
+  "settingsLanguageSystem": "Follow system",
+  "settingsLanguageZh": "Simplified Chinese",
+  "settingsLanguageZhHant": "Traditional Chinese",
+  "settingsLanguageEn": "English",
+
+  "settingsOverlayBlur": "Background blur strength",
+  "settingsTrayAnimation": "Animate the tray icon",
+  "settingsLaunchAtStartup": "Launch at login",
+
+  "settingsPrivacyIntro": "Screen Time stores everything locally and never uploads it anywhere.",
+  "settingsPrivacyDoesRecordTitle": "Recorded:",
+  "settingsPrivacyDoesRecordBody": "App display name, process name, executable path, active seconds, category, and reminder events.",
+  "settingsPrivacyDoesNotRecordTitle": "Never recorded:",
+  "settingsPrivacyDoesNotRecordBody": "Keystrokes, screenshots or screen recordings, chat/document content, browser URLs, or account data.",
+  "settingsClearDataButton": "Clear Data",
+  "settingsClearDataConfirmTitle": "Clear all usage data?",
+  "settingsClearDataConfirmBody": "This permanently deletes all recorded usage history from this device. This cannot be undone.",
+  "settingsClearDataConfirmButton": "Clear",
+  "settingsClearDataSuccess": "Usage data cleared.",
+
+  "settingsCurrentVersion": "Version {version}",
+  "@settingsCurrentVersion": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+  "settingsCheckForUpdates": "Check for updates",
+  "settingsCheckingForUpdates": "Checking…",
+  "settingsUpdateAvailable": "Version {version} available — click to download",
+  "@settingsUpdateAvailable": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+  "settingsUpToDate": "You're on the latest version.",
+  "settingsUpdateCheckFailed": "Couldn't check for updates. Try again later.",
+
+  "cancel": "Cancel",
+  "save": "Save",
+  "delete": "Delete",
+  "ok": "OK",
+
+  "aboutTagline": "A lightweight screen-time tracker and break reminder.",
+  "aboutFeatureSummaryTitle": "What it does",
+  "aboutFeatureSummaryBody": "Tracks today's and this week's usage per app, classifies apps into six categories, and reminds you to take a break after continuous use — while staying quiet during presentations or fullscreen video.",
+  "aboutPrivacyTitle": "Privacy",
+  "aboutLinksTitle": "Links",
+  "aboutProjectHomepage": "Project homepage",
+  "aboutReleaseNotes": "Release notes",
+  "aboutAcknowledgements": "Acknowledgements",
+
+  "reminderCloseEarly": "Close",
+  "@reminderCloseEarly": { "description": "Button that ends the break reminder early, only shown when allowed by settings." }
+}

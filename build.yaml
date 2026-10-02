@@ -1,0 +1,14 @@
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          # Eagerly calls .toJson() on nested freezed/json_serializable
+          # fields (e.g. DailyUsage.apps: Map<String, AppUsage>) instead of
+          # passing the raw objects through and relying on dart:convert's
+          # jsonEncode to call .toJson() on them later — matches this
+          # project's hand-rolled toJson()s, which always did this eagerly,
+          # and makes toJson()->fromJson() round-trip correctly even
+          # without going through jsonEncode/jsonDecode in between (as the
+          # model tests under test/models/ do).
+          explicit_to_json: true

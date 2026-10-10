@@ -27,6 +27,10 @@ jobs:
 
       - run: flutter pub get
 
+      # *.freezed.dart / *.g.dart are gitignored and `pub get` doesn't
+      # generate them, so the build fails on a clean checkout without this.
+      - run: dart run build_runner build --delete-conflicting-outputs
+
       # WiX v6 CLI + the UI extension used by windows/installer/cat_eyekeeper.wxs
       # (see tool/package_windows.ps1's header for why v6, not v7).
       # `dotnet tool install --global` only updates the *current* process's

@@ -10,6 +10,7 @@ Cat Eyekeeper (package name `cat_eyekeeper`) is a Flutter desktop app — **Wind
 
 ```bash
 flutter pub get                        # install deps / regenerate lib/l10n/app_localizations.dart
+dart run build_runner build --delete-conflicting-outputs   # generate *.freezed.dart / *.g.dart (gitignored)
 flutter analyze                        # static analysis (analysis_options.yaml extends flutter_lints)
 flutter test                           # run all tests
 flutter test test/core/tracking_engine_reset_test.dart   # single test file
@@ -68,7 +69,7 @@ One JSON file per calendar day under an app-data `usage/` directory (`UsageRepos
 
 ### Domain models (`lib/domain/models/`)
 
-All 13 models are `@freezed` (immutability, generated `copyWith`/`==`, and `fromJson`/`toJson` via `json_serializable` for the persisted ones). `build.yaml` sets `json_serializable: explicit_to_json: true` — required for nested freezed types to actually call their own `toJson()` rather than being serialized shallowly. Generated `*.freezed.dart`/`*.g.dart` files are gitignored; run `flutter pub get` or `dart run build_runner build` after editing a model. A few models still carry hand-written pieces alongside the generated mixin, which freezed permits as long as they don't declare extra fields: `Settings`/`CustomThemeColors` use `@JsonKey(fromJson:, defaultValue:)` field converters for enum-fallback-to-default parsing; `CategoryRules.mergedWith` is a plain instance method; `Settings.defaults()`/`CategoryRules.defaults()` are ordinary `static` factories.
+All 13 models are `@freezed` (immutability, generated `copyWith`/`==`, and `fromJson`/`toJson` via `json_serializable` for the persisted ones). `build.yaml` sets `json_serializable: explicit_to_json: true` — required for nested freezed types to actually call their own `toJson()` rather than being serialized shallowly. Generated `*.freezed.dart`/`*.g.dart` files are gitignored and `flutter pub get` does not create them — run `dart run build_runner build --delete-conflicting-outputs` after a fresh clone or after editing a model (CI does this too, in `.github/workflows/release.yml`). A few models still carry hand-written pieces alongside the generated mixin, which freezed permits as long as they don't declare extra fields: `Settings`/`CustomThemeColors` use `@JsonKey(fromJson:, defaultValue:)` field converters for enum-fallback-to-default parsing; `CategoryRules.mergedWith` is a plain instance method; `Settings.defaults()`/`CategoryRules.defaults()` are ordinary `static` factories.
 
 ### UI (`lib/ui/`)
 

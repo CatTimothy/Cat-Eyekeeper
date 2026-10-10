@@ -15,7 +15,7 @@ const _trayIconAsset = 'assets/bundled_packs/tray_icon/star_cat/image.gif';
 /// Wires the system tray: an icon animated at a CPU-driven speed, a
 /// 3-item context menu, a status tooltip, and update-available
 /// notifications. Functional spec section 4.
-class TrayService with TrayListener {
+class TrayService {
   TrayService({required AppPaths paths, bool useDarkForeground = false, TrayIconFactory? iconFactory})
     : _paths = paths,
       _useDarkForeground = useDarkForeground,
@@ -35,8 +35,12 @@ class TrayService with TrayListener {
   Stream<void> get updateDownloadRequested => _updateDownloadController.stream;
 
   AppLocalizations? _l10n;
-  List<String>? _lightForegroundFrames;
-  List<String>? _darkForegroundFrames;
+  TrayIcon? _trayIcon;
+  ListenerId? _trayListenerId;
+  Menu? _menu;
+  List<MenuItem> _menuItems = const [];
+  List<Image> _lightForegroundFrames = const [];
+  List<Image> _darkForegroundFrames = const [];
   bool _useDarkForeground;
   Timer? _animationTimer;
   int _frameIndex = 0;
@@ -44,30 +48,35 @@ class TrayService with TrayListener {
   double _cpuPercent = 0;
 
   Future<void> start({required Locale locale}) async {
-    trayManager.addListener(this);
+    final trayIcon = TrayIcon.create();
+    if (trayIcon == null) throw StateError('Unable to create the tray icon');
+    _trayIcon = trayIcon;
+    // Left click opens the dashboard (see _onTrayIconEvent); the native
+    // layer pops the context menu on right click by itself. Linux reports
+    // no tray clicks at all — the panel opens the menu on any click.
+    trayIcon.setContextMenuTrigger(ContextMenuTrigger.rightClicked);
+    _trayListenerId = trayIcon.addListener(_onTrayIconEvent);
+
     await localNotifier.setup(appName: 'ScreenTimeFlutter');
     _l10n = await AppLocalizations.delegate.load(locale);
 
     await _loadFrames();
 
-    // setIcon must run before setContextMenu: on Linux, tray_manager's
-    // AppIndicator is only constructed inside its setIcon handler, and
-    // setContextMenu calls app_indicator_set_menu() on it with no null
-    // check, so calling menu-first crashes the assertion on startup.
-    await _setFrame(0);
-    await _applyMenu();
+    _setFrame(0);
+    trayIcon.setVisible(true);
+    _applyMenu();
     _scheduleNextFrame();
   }
 
   Future<void> setLocale(Locale locale) async {
     _l10n = await AppLocalizations.delegate.load(locale);
-    await _applyMenu();
+    _applyMenu();
   }
 
   Future<void> setTrayForeground({required bool useDarkForeground}) async {
     if (_useDarkForeground == useDarkForeground) return;
     _useDarkForeground = useDarkForeground;
-    await _setFrame(_frameIndex);
+    _setFrame(_frameIndex);
   }
 
   /// Loads the bundled default tray icon's frames, falling back to the
@@ -77,9 +86,16 @@ class TrayService with TrayListener {
     final iconFrames = _iconFactory.buildFramesFromImagePath(iconPath);
     final List<Uint8List> lightFrames = iconFrames ?? [_iconFactory.buildDefaultIcon(useDarkForeground: false)];
     final List<Uint8List> darkFrames = iconFrames ?? [_iconFactory.buildDefaultIcon(useDarkForeground: true)];
-    _lightForegroundFrames = await _iconFactory.writeFramesToTempFiles(lightFrames);
-    _darkForegroundFrames = await _iconFactory.writeFramesToTempFiles(darkFrames);
+    _lightForegroundFrames = _loadImages(await _iconFactory.writeFramesToTempFiles(lightFrames));
+    _darkForegroundFrames = _loadImages(await _iconFactory.writeFramesToTempFiles(darkFrames));
   }
+
+  /// Decodes every frame once up front, so each animation tick only swaps
+  /// an already-loaded native image instead of re-reading a file.
+  List<Image> _loadImages(List<String> paths) => [
+    for (final path in paths)
+      Image.fromFile(path) ?? (throw ArgumentError.value(path, 'path', 'Unable to load tray icon frame')),
+  ];
 
   void setPaused(bool paused) {
     _isPaused = paused;
@@ -101,7 +117,7 @@ class TrayService with TrayListener {
     if (l10n == null) return;
     final status = isPaused ? l10n.trayStatusPaused : (isActive ? l10n.trayStatusActive : l10n.trayStatusIdle);
     final tooltip = l10n.trayTooltipSummary(status, _formatDuration(today), cpuPercent.toStringAsFixed(1));
-    await trayManager.setToolTip(tooltip);
+    _trayIcon?.setTooltip(tooltip);
   }
 
   Future<void> showUpdateAvailable(String version) async {
@@ -114,48 +130,70 @@ class TrayService with TrayListener {
     await notification.show();
   }
 
-  Future<void> _applyMenu() async {
+  void _applyMenu() {
     final l10n = _l10n;
-    if (l10n == null) return;
-    await trayManager.setContextMenu(
-      Menu(
-        items: [
-          MenuItem(
-            key: 'open_dashboard',
-            label: l10n.trayOpenDashboard,
-            onClick: (_) => _openDashboardController.add(null),
-          ),
-          MenuItem(key: 'settings', label: l10n.traySettings, onClick: (_) => _openSettingsController.add(null)),
-          MenuItem.separator(),
-          MenuItem(key: 'exit', label: l10n.trayExit, onClick: (_) => _exitController.add(null)),
-        ],
-      ),
-    );
+    final trayIcon = _trayIcon;
+    if (l10n == null || trayIcon == null) return;
+    final items = [
+      _menuItem(l10n.trayOpenDashboard, _openDashboardController),
+      _menuItem(l10n.traySettings, _openSettingsController),
+      _menuItem(l10n.trayExit, _exitController),
+    ];
+    final menu = Menu.create();
+    if (menu == null) throw StateError('Unable to create the tray menu');
+    menu
+      ..addItem(items[0])
+      ..addItem(items[1])
+      ..addSeparator()
+      ..addItem(items[2]);
+    trayIcon.setContextMenu(menu);
+
+    // The replaced menu may be the one whose click is being delivered right
+    // now (e.g. a locale change triggered from it), so it's released on the
+    // next event-loop turn rather than synchronously.
+    final previousMenu = _menu;
+    final previousItems = _menuItems;
+    _menu = menu;
+    _menuItems = items;
+    Timer.run(() => _disposeMenu(previousMenu, previousItems));
+  }
+
+  MenuItem _menuItem(String label, StreamController<void> onClick) {
+    final item = MenuItem.createWithLabelAndType(label, MenuItemType.normal);
+    if (item == null) throw StateError('Unable to create tray menu item "$label"');
+    item.addListener((event) {
+      if (event is MenuItemClickedEvent) onClick.add(null);
+    });
+    return item;
+  }
+
+  void _disposeMenu(Menu? menu, List<MenuItem> items) {
+    menu?.dispose();
+    for (final item in items) {
+      item.dispose();
+    }
   }
 
   void _scheduleNextFrame() {
     _animationTimer?.cancel();
-    _animationTimer = Timer(trayTickInterval(_cpuPercent, isPaused: _isPaused), () async {
-      final frameCount = _lightForegroundFrames?.length ?? TrayIconFactory.defaultFrameCount;
+    _animationTimer = Timer(trayTickInterval(_cpuPercent, isPaused: _isPaused), () {
+      final frameCount = _lightForegroundFrames.isEmpty
+          ? TrayIconFactory.defaultFrameCount
+          : _lightForegroundFrames.length;
       _frameIndex = (_frameIndex + 1) % frameCount;
-      await _setFrame(_frameIndex);
+      _setFrame(_frameIndex);
       _scheduleNextFrame();
     });
   }
 
-  Future<void> _setFrame(int index) async {
+  void _setFrame(int index) {
     final frames = _useDarkForeground ? _darkForegroundFrames : _lightForegroundFrames;
-    final path = frames?[index];
-    if (path != null) {
-      await trayManager.setIcon(path);
-    }
+    if (index < frames.length) _trayIcon?.icon = frames[index];
   }
 
-  @override
-  void onTrayIconMouseDown() => _openDashboardController.add(null);
-
-  @override
-  void onTrayIconRightMouseDown() => trayManager.popUpContextMenu();
+  void _onTrayIconEvent(TrayIconEvent event) {
+    if (event is TrayIconClickedEvent) _openDashboardController.add(null);
+  }
 
   String _formatDuration(Duration duration) {
     final hours = duration.inHours;
@@ -165,8 +203,21 @@ class TrayService with TrayListener {
 
   Future<void> dispose() async {
     _animationTimer?.cancel();
-    trayManager.removeListener(this);
-    await trayManager.destroy();
+    final trayIcon = _trayIcon;
+    _trayIcon = null;
+    if (trayIcon != null) {
+      final listenerId = _trayListenerId;
+      if (listenerId != null) trayIcon.removeListener(listenerId);
+      trayIcon.dispose();
+    }
+    _disposeMenu(_menu, _menuItems);
+    _menu = null;
+    _menuItems = const [];
+    for (final image in [..._lightForegroundFrames, ..._darkForegroundFrames]) {
+      image.dispose();
+    }
+    _lightForegroundFrames = const [];
+    _darkForegroundFrames = const [];
     await _openDashboardController.close();
     await _openSettingsController.close();
     await _exitController.close();

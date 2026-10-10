@@ -112,7 +112,7 @@ class TrayIconFactory {
   }
 
   /// Writes a frame set to a fresh temp directory once and returns the
-  /// file paths in order — `tray_manager.setIcon()` needs a path, not
+  /// file paths in order — `Image.fromFile()` needs a path, not
   /// raw bytes. [frames] are PNG-encoded (see [buildDefaultIcon] /
   /// [buildFramesFromImagePath]); on Windows they're re-encoded to `.ico`
   /// here, since tray_manager's Windows plugin loads the icon via Win32
